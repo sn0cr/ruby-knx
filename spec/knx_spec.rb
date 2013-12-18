@@ -266,6 +266,24 @@ describe KNX do
         expect(buffer.buffer).to be_empty
       end
     end
+    context "if a invalid packet is received" do
+      before(:each) do
+        EIBConnection.any_instance.stub(:EIB_Poll_FD).and_return 0
+        EIBConnection.any_instance.stub(:EIB_Poll_Complete).and_return 1
+        EIBConnection.any_instance.stub(:EIBGetAPDU_Src).and_return 1
+      end
 
+      it "should return empty address" do
+        (source, _) = knx.instance_eval{ read_polling_loop }
+        expect(source).to be_a EIBAddr
+        expect(source.data).to be_zero
+      end
+
+      it "should return empty buffer" do
+        (_, buffer) = knx.instance_eval{ read_polling_loop }
+        expect(buffer).to be_a EIBBuffer
+        expect(buffer.buffer).to be_empty
+      end
+    end
   end
 end
