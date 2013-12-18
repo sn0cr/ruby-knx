@@ -24,10 +24,11 @@ describe KNX::Decode do
     it "should decode a physical properly" do
       expect(KNX::Decode.physical_address(4358)).to eql("1.1.6")
       expect(KNX::Decode.physical_address(7990)).to eql("1.15.54")
+      expect(KNX::Decode.physical_address(-1)).to eql("15.15.255")
     end
     it "should decode a groupaddress properly" do
       expect(KNX::Decode.group_address(4358)).to eql("2/1/6")
-      expect(KNX::Decode.group_address(4409,)).to eql("2/1/57")
+      expect(KNX::Decode.group_address(4409)).to eql("2/1/57")
     end
   end
 end

@@ -1,0 +1,1216 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"tele",
+				"telegramms_name"
+			],
+			[
+				"File",
+				"File	File.open(\"..\") { |file| .. }"
+			],
+			[
+				"gr",
+				"groupwrite"
+			],
+			[
+				"cr",
+				"ctrl_c"
+			],
+			[
+				"do",
+				"do	Insert do … end"
+			],
+			[
+				"desc",
+				"describe"
+			],
+			[
+				"re",
+				"resh	Require spec_helper"
+			],
+			[
+				"sh",
+				"she	should equal"
+			],
+			[
+				"e",
+				"eap	each_pair { |name, val| .. }"
+			],
+			[
+				"H",
+				"H_BASE"
+			],
+			[
+				"p",
+				"puts"
+			],
+			[
+				"mod",
+				"mod	module .. ClassMethods .. end"
+			],
+			[
+				"lo",
+				"load"
+			],
+			[
+				"file",
+				"file_name"
+			],
+			[
+				"te",
+				"text-align"
+			],
+			[
+				"font",
+				"font-weight"
+			],
+			[
+				"b",
+				"border"
+			],
+			[
+				"ma",
+				"margin"
+			],
+			[
+				"more",
+				"more-size"
+			],
+			[
+				"fa",
+				"fadeInUpBig"
+			],
+			[
+				"ani",
+				"animate_in_with"
+			],
+			[
+				"up",
+				"updateData"
+			],
+			[
+				"cah",
+				"cached_days"
+			],
+			[
+				"sett",
+				"settings_callback"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"nav",
+				"nav-items"
+			],
+			[
+				"app",
+				"append"
+			],
+			[
+				"sort",
+				"sort_by"
+			],
+			[
+				"el",
+				"el	Else"
+			],
+			[
+				"c",
+				"CinzelDecorative-Regular"
+			],
+			[
+				"sy",
+				"Syncopate"
+			],
+			[
+				"ba",
+				"background-color"
+			],
+			[
+				"l",
+				"last_name"
+			],
+			[
+				"man",
+				"manifest_path"
+			],
+			[
+				"Fi",
+				"File	File.read(\"..\")"
+			],
+			[
+				"fi",
+				"file_name"
+			],
+			[
+				"pu",
+				"public_folder"
+			],
+			[
+				"di",
+				"digest_name"
+			],
+			[
+				"n",
+				"normal_name"
+			],
+			[
+				"Fil",
+				"File	File.read(\"..\")"
+			],
+			[
+				"Ma",
+				"MANIFEST_FILE"
+			],
+			[
+				"F",
+				"File	File.open(\"..\") { |file| .. }"
+			],
+			[
+				"M",
+				"MANIFEST_FILE"
+			],
+			[
+				"ke",
+				"key_value"
+			],
+			[
+				"hash",
+				"hash_to_attrs"
+			],
+			[
+				"mo",
+				"mod	module .. end"
+			],
+			[
+				"co",
+				"con	context"
+			],
+			[
+				"its",
+				"its	it (should do something)"
+			],
+			[
+				"itsr",
+				"itsrt	Active Controller - Render template"
+			],
+			[
+				"itr",
+				"itsrw	Active Controller - Respond with"
+			],
+			[
+				"wh",
+				"whenever"
+			],
+			[
+				"un",
+				"unlock"
+			],
+			[
+				"rate",
+				"rate_limit"
+			],
+			[
+				"email",
+				"email_param"
+			],
+			[
+				"ema",
+				"email_param"
+			],
+			[
+				"tem",
+				"temp_api_key_param"
+			],
+			[
+				"iden",
+				"identifier_param"
+			],
+			[
+				"ret",
+				"return"
+			],
+			[
+				"exp",
+				"expiration_date"
+			],
+			[
+				"key",
+				"key_param"
+			],
+			[
+				"ge",
+				"generate_temp_keys"
+			],
+			[
+				"ky",
+				"key_param"
+			],
+			[
+				"metric",
+				"metric_response"
+			],
+			[
+				"ex",
+				"rate_limit_exceeded"
+			],
+			[
+				"hi",
+				"hits_per_minute"
+			],
+			[
+				"code",
+				"code_param"
+			],
+			[
+				"ip",
+				"ip_param"
+			],
+			[
+				"metr",
+				"metric_response"
+			],
+			[
+				"incr",
+				"incr_field"
+			],
+			[
+				"res",
+				"response_codes"
+			],
+			[
+				"inc",
+				"incr_field"
+			],
+			[
+				"red",
+				"redis_url"
+			],
+			[
+				"o",
+				"observe"
+			],
+			[
+				"ra",
+				"rate_limit"
+			],
+			[
+				"param",
+				"param_error"
+			],
+			[
+				"ca",
+				"cache_item"
+			],
+			[
+				"chi",
+				"children"
+			],
+			[
+				"short",
+				"short_name_param"
+			],
+			[
+				"long",
+				"long_name_param"
+			],
+			[
+				"get",
+				"get_teacher"
+			],
+			[
+				"sho",
+				"short_name_param"
+			],
+			[
+				"d",
+				"d"
+			],
+			[
+				"less",
+				"lessons_array"
+			],
+			[
+				"GR",
+				"GRADE_REGEX"
+			],
+			[
+				"fo",
+				"form_name_m"
+			],
+			[
+				"For",
+				"FORM_LONG_NAME_REGEX"
+			],
+			[
+				"form",
+				"form_name_matcher"
+			],
+			[
+				"entr",
+				"entries_current_day"
+			],
+			[
+				"arg",
+				"argv"
+			],
+			[
+				"en",
+				"entries_next_day"
+			],
+			[
+				"opt",
+				"options"
+			],
+			[
+				"bl",
+				"bllub"
+			],
+			[
+				"u",
+				"updated_date_next_day"
+			],
+			[
+				"date",
+				"date_current_day"
+			],
+			[
+				"da",
+				"date_current_day"
+			],
+			[
+				"find",
+				"find_day"
+			],
+			[
+				"su",
+				"supply_teacher"
+			],
+			[
+				"supp",
+				"supply_teacher"
+			],
+			[
+				"si",
+				"supply_teacher_id"
+			],
+			[
+				"bi",
+				"build"
+			],
+			[
+				"and",
+				"and_return"
+			],
+			[
+				"par",
+				"params"
+			],
+			[
+				"les",
+				"lessons"
+			],
+			[
+				"it",
+				"it	it"
+			],
+			[
+				"for",
+				"form"
+			],
+			[
+				"hav",
+				"have_node"
+			],
+			[
+				"mat",
+				"matches"
+			],
+			[
+				"sub",
+				"subject"
+			],
+			[
+				"rend",
+				"render"
+			],
+			[
+				"render",
+				"render_with_rabl"
+			],
+			[
+				"ren",
+				"render_with_rabl"
+			],
+			[
+				"argv",
+				"ARGV"
+			],
+			[
+				"ec",
+				"expected"
+			],
+			[
+				"conte",
+				"content"
+			],
+			[
+				"ha",
+				"have_node"
+			],
+			[
+				"de",
+				"des	describe (String)"
+			],
+			[
+				"op",
+				"options"
+			],
+			[
+				"be",
+				"be	expect(subject) be"
+			],
+			[
+				"st",
+				"stu	stub"
+			],
+			[
+				"le",
+				"let	let"
+			],
+			[
+				"lessn",
+				"lessons"
+			],
+			[
+				"pa",
+				"params"
+			],
+			[
+				"th",
+				"though"
+			],
+			[
+				"shou",
+				"should"
+			],
+			[
+				"should",
+				"should_not"
+			],
+			[
+				"in",
+				"inheritance_column"
+			],
+			[
+				"xpa",
+				"xpa	xpath(..) { .. }"
+			],
+			[
+				"t",
+				"text"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "knx.sublime-project",
+			"settings":
+			{
+				"buffer_size": 113,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 375.0,
+		"selected_items":
+		[
+			[
+				"mi",
+				"Licence Snippet: MIT"
+			],
+			[
+				"mit",
+				"Licence Snippet: MIT"
+			],
+			[
+				"ruby",
+				"Set Syntax: Ruby"
+			],
+			[
+				"rspec",
+				"Set Syntax: RSpec"
+			],
+			[
+				"isnt",
+				"Package Control: Install Package"
+			],
+			[
+				"bsd",
+				"Licence Snippet: BSD (3 clause)"
+			],
+			[
+				"remv",
+				"Package Control: Remove Package"
+			],
+			[
+				"rem",
+				"Package Control: Remove Package"
+			],
+			[
+				"ena",
+				"Package Control: Enable Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"dis",
+				"Package Control: Disable Package"
+			],
+			[
+				"disb",
+				"Package Control: Disable Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"lice",
+				"Licence Snippet: BSD (3 clause)"
+			],
+			[
+				"inser",
+				"Auto Copyright: Insert Copyright"
+			],
+			[
+				"insert",
+				"Auto Copyright: Insert Copyright"
+			],
+			[
+				"",
+				"Auto Copyright: Insert Copyright"
+			],
+			[
+				"aut",
+				"Preferences: AutoCopyright Settings – User"
+			],
+			[
+				"auto",
+				"Preferences: AutoCopyright Settings – Default"
+			],
+			[
+				"Preferences: AutoCopyrigh",
+				"Preferences: AutoCopyright Settings – User"
+			],
+			[
+				"pack re",
+				"Package Control: Remove Package"
+			],
+			[
+				"au",
+				"About"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"ng",
+				"Set Syntax: nginx"
+			],
+			[
+				"ngin",
+				"Set Syntax: nginx"
+			],
+			[
+				"sass",
+				"Set Syntax: Sass"
+			],
+			[
+				"ru",
+				"Set Syntax: Ruby"
+			],
+			[
+				"sasss",
+				"Set Syntax: Shell Script (fish)"
+			],
+			[
+				"ngi",
+				"Gitignore: New gitingore"
+			],
+			[
+				"git gra",
+				"Git: Graph All"
+			],
+			[
+				"json",
+				"Set Syntax: JSON"
+			],
+			[
+				"rabl",
+				"Package Control: Enable Package"
+			],
+			[
+				"itsbl",
+				"Snippet: it_should_behave_like"
+			],
+			[
+				"fish",
+				"Set Syntax: Shell Script (fish)"
+			],
+			[
+				"diff",
+				"Git: Diff All"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"ga",
+				"Git: Add Selected Hunk"
+			],
+			[
+				"g",
+				"Git: Graph All"
+			],
+			[
+				"git",
+				"Git: Diff All"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Remove Package"
+			],
+			[
+				"pac",
+				"Package Control: Disable Package"
+			],
+			[
+				"terminak",
+				"Preferences: Terminal Key Bindings – User"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"r",
+				"Rot13 Selection"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"ann",
+				"Git: Toggle Annotations"
+			],
+			[
+				"git diff",
+				"Git: Diff All"
+			],
+			[
+				"tab",
+				"Indentation: Convert to Tabs"
+			]
+		],
+		"width": 516.0
+	},
+	"console":
+	{
+		"height": 400.0,
+		"history":
+		[
+			"view.settings().get('tafk', 8)",
+			"view.settings().get('tab_size', 8)",
+			"view.run_command('example')",
+			"view.run_command('auto_copyrighter')",
+			"view.run_command('auto_copyrighr')",
+			"view.run_command('auto_copyrighter')",
+			"view.run_command('example')",
+			"view.run_command('example')  ",
+			"__dir__(view)",
+			"view.getattr()",
+			"view.getattr",
+			"view.methods()",
+			"view.methods",
+			"view",
+			"view.run_command('example')  ",
+			"view.run_command('example')"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/c/repos/_/knx/knx_helper/groupwrite.rb",
+		"/home/c/repos/_/knx/eibd_ruby/EIBConnection.rb",
+		"/home/c/repos/_/knx/seeds.rb",
+		"/home/c/repos/_/knx/knx_helper/sendtime.rb",
+		"/home/c/kurt/script.rb",
+		"/home/c/Arbeitsfläche/vim74/src/vimtutor",
+		"/home/c/Arbeitsfläche/vim74/runtime/syntax/zsh.vim",
+		"/home/c/repos/_/knx/test_scipts/vbusmonitor.rb",
+		"/home/c/repos/_/knx/test_scipts/eibd",
+		"/home/c/repos/_/knx/bcusdk-code/eibd/examples/groupwrite.c",
+		"/home/c/repos/h/lib/h/env.rb",
+		"/home/c/repos/h/spec/spec_helper.rb",
+		"/home/c/repos/h/lib/h.rb",
+		"/home/c/repos/h/spec/h_spec.rb",
+		"/home/c/repos/h/Gemfile",
+		"/home/c/repos/h/spec/h/env_spec.rb",
+		"/home/c/repos/KNXServer/db/seeds.rb",
+		"/home/c/Downloads/VMware-Player-6.0.1-1379776.x86_64.bundle",
+		"/tmp/vmware-root/vmware-authdlauncher-11792.log",
+		"/home/c/repos/elixir/rebar.config",
+		"/home/c/.zshrc",
+		"/home/c/repos/elixir/bin/mix",
+		"/home/c/repos/prike/Gemfile",
+		"/home/c/repos/prike/spec/prike_spec.rb",
+		"/home/c/repos/prike/lib/prike.rb",
+		"/home/c/repos/prike/spec/spec_helper.rb",
+		"/home/c/repos/dsb-api/api/spec/models/api_key_spec.rb",
+		"/home/c/repos/dsb-api/api/spec/controllers/api/v1/api_controller_spec.rb",
+		"/home/c/repos/_/blub",
+		"/home/c/.oh-my-zsh/custom/zsh-syntax-highlighting/README.md",
+		"/home/c/repos/prike/lib/core_ext/string.rb",
+		"/home/c/repos/h/bin/h",
+		"/home/c/repos/h/Rakefile",
+		"/home/c/repos/prike-git/Gemfile",
+		"/home/c/repos/prike/bin/prike-shell",
+		"/home/c/repos/prike-git/Rakefile",
+		"/home/c/repos/prike-git/lib/tasks/environment.rake",
+		"/home/c/repos/prike-git/lib/tasks/pry.rake",
+		"/home/c/repos/prike/Rakefile",
+		"/home/c/repos/dsb-api/api/Rakefile",
+		"/home/c/repos/h/h",
+		"/home/c/.config/sublime-text-3/Packages/User/bsd-3-clause-license.sublime-snippet",
+		"/home/c/repos/dsb/dsb/dsb.rb",
+		"/home/c/.oh-my-zsh/plugins/git/git.plugin.zsh",
+		"/home/c/.oh-my-zsh/plugins/bundler/bundler.plugin.zsh",
+		"/home/c/Dropbox/Schule/mathe/matheblatt/FA.tex",
+		"/home/c/Arbeitsfläche/A.tex",
+		"/home/c/.zsh_history",
+		"/home/c/repos/dsb/dsb/entry.rb",
+		"/home/c/.config/sublime-text-3/Packages/AutoCopyright/InsertCopyrightCommand.py",
+		"/home/c/.config/sublime-text-3/Packages/AutoCopyright/UpdateCopyrightCommand.py",
+		"/home/c/.config/sublime-text-3/Packages/AutoCopyright/CopyrightCommand.py",
+		"/home/c/.config/sublime-text-3/Packages/AutoCopyright/constants.py",
+		"/home/c/.config/sublime-text-3/Packages/User/AutoCopyright.sublime-settings",
+		"/home/c/.config/sublime-text-3/Packages/AutoCopyright/AutoCopyright.sublime-settings",
+		"/home/c/.config/sublime-text-3/Packages/AutoCopyright/README.md",
+		"/home/c/.config/sublime-text-3/Packages/AutoCopyright/AutoCopyrightEventListener.py",
+		"/home/c/.config/sublime-text-3/Packages/AutoCopyright/Default.sublime-commands",
+		"/home/c/.config/sublime-text-3/Packages/User/AutoCopyrightr.py",
+		"/home/c/.config/sublime-text-3/Packages/AutoCopyright/install.sh",
+		"/home/c/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
+		"/home/c/.config/sublime-text-3/Packages/Default/Default (Linux).sublime-keymap",
+		"/home/c/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/tmp/.fr-Hid7zI/duplicate_line.py",
+		"/tmp/.fr-bP4fUr/indentation.py",
+		"/tmp/.fr-C1019N/font.py",
+		"/tmp/.fr-jXzzmr/new_templates.py",
+		"/tmp/.fr-VL7RNv/open_in_browser.py",
+		"/tmp/.fr-vKVaEB/Delete to BOL.sublime-macro",
+		"/opt/sublime_text/Packages/LaTeX.sublime-package",
+		"/home/c/.config/sublime-text-3/Packages/Package Control/Default.sublime-commands",
+		"/home/c/.config/sublime-text-3/Packages/User/AutoCopyrighter/AutoCopyrighter.py",
+		"/home/c/.config/sublime-text-3/Packages/User/example.py",
+		"/home/c/.config/sublime-text-3/Packages/User/ColorPicker/bin/linux_colorpicker.py",
+		"/home/c/.config/sublime-text-3/Packages/User/AutoCopyrighter/autoCopyrighter.py",
+		"/home/c/repos/vertreter/app/assets/javascripts/app/lib/day_with_lessons.coffee",
+		"/home/c/repos/vertreter/app/assets/javascripts/app/lib/lesson.coffee",
+		"/home/c/repos/vertreter/app/assets/javascripts/app/ext/talkative_array.coffee",
+		"/home/c/.config/sublime-text-3/Packages/User/AutoCopyrighter/auto_copyrighter.py",
+		"/tmp/rsub-8cmsss/45189.vs.webtropia.com:script.rb",
+		"/home/c/.cache/motd.legal-displayed",
+		"/home/c/.cache/totem-plugin-viewer-9RJ55W",
+		"/home/c/repos/vertreter/app/assets/javascripts/app/main.coffee",
+		"/tmp/.fr-Rr3nQ4/README.md",
+		"/tmp/.fr-wGTkGM/install.sh",
+		"/tmp/.fr-oxDymk/AutoCopyright.sublime-settings",
+		"/home/c/Arbeitsfläche/test/data",
+		"/tmp/rsub-mponvf/dhwx.de",
+		"/tmp/rsub-u006u1/45189.vs.webtropia.com:cloud.dhwx.de",
+		"/home/c/repos/vertreter/app/assets/javascripts/app/initialize.coffee",
+		"/home/c/repos/vertreter/app/assets/stylesheets/screen.sass",
+		"/home/c/repos/vertreter/app/assets/stylesheets/settings.sass",
+		"/home/c/repos/vertreter/views/experiment.haml",
+		"/home/c/repos/vertreter/app/assets/stylesheets/application.css",
+		"/home/c/repos/vertreter/start.rb",
+		"/home/c/repos/vertreter/views/nav.haml",
+		"/home/c/repos/vertreter/app/assets/javascripts/app/lib/days.coffee",
+		"/home/c/repos/vertreter/views/layout.haml",
+		"/home/c/repos/vertreter/views/index.haml",
+		"/home/c/repos/vertreter/app/assets/stylesheets/nav.sass",
+		"/home/c/repos/vertreter/app/assets/stylesheets/fonts.sass",
+		"/home/c/repos/vertreter/app/assets/javascripts/app/lib/templates/lesson.handlebars",
+		"/home/c/repos/vertreter/app/assets/stylesheets/date.sass",
+		"/tmp/.fr-HSpT3m/RDM.app/Contents/MacOS/SRApplicationDelegate.h",
+		"/tmp/.fr-2opea8/RDM.app/Contents/MacOS/SetResX",
+		"/tmp/.fr-ymu2uF/RDM.app/Contents/MacOS/cmdline.h",
+		"/home/c/repos/vertreter/app/assets/javascripts/app/lib/templates/template.js",
+		"/home/c/repos/vertreter/Rakefile",
+		"/home/c/repos/vertreter/config/unicorn.rb",
+		"/home/c/repos/vertreter/config/deploy.rb",
+		"/home/c/repos/vertreter/config.ru",
+		"/tmp/rsub-71lm4r/45189.vs.webtropia.com:frei.dhwx.de",
+		"/home/c/repos/vertreter/lib/initializers/csrf.rb",
+		"/home/c/repos/vertreter/lib/helper/asset_include.rb",
+		"/home/c/repos/vertreter/csp-log",
+		"/home/c/repos/vertreter/lib/routes/dsb_api.routes",
+		"/home/c/repos/vertreter/app/public/assets/manifest",
+		"/home/c/repos/vertreter/Gemfile",
+		"/home/c/repos/vertreter/app/public/assets/cinzeldecorative-a98c2b25023103e4e7d5c75ade57af3a.woff",
+		"/home/c/repos/vertreter/cps",
+		"/home/c/repos/github/brackets/brackets-shell/installer/linux/debian/DEBIAN/control",
+		"/usr/lib/brackets/www/brackets.js",
+		"/usr/bin/brackets",
+		"/home/c/repos/github/brackets/setup.sh",
+		"/home/c/repos/vertreter/app/css/nav.sass",
+		"/home/c/repos/vertreter/app/css/screen.sass",
+		"/home/c/repos/github/brackets/brackets-shell/installer/linux/build_installer.sh",
+		"/home/c/repos/vertreter/.git/config"
+	],
+	"find":
+	{
+		"height": 37.0
+	},
+	"find_in_files":
+	{
+		"height": 95.0,
+		"where_history":
+		[
+			"",
+			"/home/c/repos/vertreter/app/assets/javascripts/app,",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"20",
+			"\n",
+			"EIBOpenBusmonitorTS",
+			"instance_eval",
+			"fsdihfsoi",
+			"EnvHelper",
+			"}\n",
+			"v",
+			"Matheblatt für das Probeabitur 2013",
+			"Integrationsformeln",
+			"x",
+			"10",
+			"\\alpha",
+			"}\n",
+			"^2",
+			"2cm",
+			"tabular",
+			"n",
+			"blu",
+			"0",
+			"center",
+			"clear",
+			"app",
+			">\\",
+			"content",
+			"center-container",
+			"production",
+			"deployment",
+			"csp-log",
+			"Package",
+			";  ",
+			"nav",
+			" }",
+			"{ ",
+			"nav",
+			";  ",
+			"{",
+			"}",
+			"}  ",
+			"app",
+			"kurt",
+			"1800",
+			"hits",
+			"Hits",
+			"messages_sent",
+			"three_dimensional",
+			"MESSAGE",
+			"response",
+			"$redis",
+			"röß",
+			"form_name_matcher",
+			"{\"description\"",
+			"description",
+			"blub",
+			"tomorrow",
+			"today",
+			"t",
+			"hour",
+			"grade",
+			"api/v1/api/grade",
+			"teacher",
+			"lesson",
+			"subject",
+			"form",
+			"\"forms\"",
+			"@grade",
+			"day",
+			"form",
+			"forms",
+			"grade",
+			"long_name",
+			"short_name",
+			"gforms",
+			"@grade",
+			"grade",
+			"lesson",
+			"@form",
+			"instance_exec",
+			"concern",
+			"short_name",
+			"day",
+			"room",
+			"lesson",
+			"type",
+			"transfer",
+			"subject",
+			"room",
+			"form",
+			"day",
+			"d",
+			"eql",
+			"@content",
+			"content",
+			"blub",
+			"render",
+			"RSpec",
+			"OneMoreThan",
+			"actual",
+			"day",
+			"lessons",
+			"datum",
+			"form",
+			" { without :hour }",
+			"without",
+			"long_name",
+			"build(:form)",
+			"C.Wahl",
+			"KartenKurt",
+			"himmelreich",
+			"grad",
+			"class",
+			"row_children",
+			"childrens",
+			"headers",
+			"browser",
+			"is_ned",
+			"etherpad",
+			"create_repo",
+			"setup_user_directory",
+			"repo_user",
+			"repo_exists",
+			"repo_exists?",
+			"PRIKE_BASE",
+			"puts",
+			"ADDITIONAL_FOLDER",
+			"__FILE__",
+			"Class with",
+			"write_one_key"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"w",
+			"^3",
+			"",
+			"next_day",
+			"current_day",
+			"next_day",
+			""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "knx.sublime-project",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 113,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 32.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 211.0
+	},
+	"output.git":
+	{
+		"height": 110.0
+	},
+	"project": "knx.sublime-project",
+	"replace":
+	{
+		"height": 88.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"spe",
+				"spec/spec_helper.rb"
+			],
+			[
+				"spec",
+				"spec/spec_helper.rb"
+			],
+			[
+				"support/jso",
+				"spec/support/matchers/json.rb"
+			],
+			[
+				"sp",
+				"spec/spec_helper.rb"
+			],
+			[
+				"matcher",
+				"spec/support/matchers/json.rb"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 188.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

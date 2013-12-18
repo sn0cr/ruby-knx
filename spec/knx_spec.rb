@@ -75,11 +75,50 @@ describe KNX do
       knx.read_from group_address
     end
 
-    it "returns empty values if a error occurs" do
-      pending "think about a solution"
-      EIBConnection.any_instance.stub(:EIBSendAPDU).and_return -1
-      expect(knx.read_from(group_address)).to eql([])
-      EIBConnection.any_instance.stub(:EIBOpenT_Group).and_return -1
+    context "if we can't communicate with the groupaddress" do
+      before(:each) do
+        EIBConnection.any_instance.stub(:EIBOpenT_Group).and_return -1
+      end
+
+      it "should reset the connection" do
+        EIBConnection.any_instance.should_receive(:EIBReset)
+        knx.read_from group_address
+      end
+
+      it "should return empty address" do
+        (source, _) = knx.read_from group_address
+        expect(source).to be_a EIBAddr
+        expect(source.data).to be_zero
+
+      end
+      it "should return empty buffer" do
+        (_, buffer) = knx.read_from group_address
+        expect(buffer).to be_a EIBBuffer
+        expect(buffer.buffer).to be_empty
+      end
+    end
+
+    context "if we can't send data" do
+      before(:each) do
+        EIBConnection.any_instance.stub(:EIBSendAPDU).and_return -1
+      end
+
+      it "should reset the connection" do
+        EIBConnection.any_instance.should_receive(:EIBReset)
+        knx.read_from group_address
+      end
+
+      it "should return empty address" do
+        (source, _) = knx.read_from group_address
+        expect(source).to be_a EIBAddr
+        expect(source.data).to be_zero
+
+      end
+      it "should return empty buffer" do
+        (_, buffer) = knx.read_from group_address
+        expect(buffer).to be_a EIBBuffer
+        expect(buffer.buffer).to be_empty
+      end
     end
   end
 
@@ -102,6 +141,131 @@ describe KNX do
       EIBConnection.any_instance.should_receive(:EIBSendAPDU).with([0, 128])
       knx.write_to(group_address, value)
     end
+
+    context "if we can't communicate with the groupaddress" do
+      before(:each) do
+        EIBConnection.any_instance.stub(:EIBOpenT_Group).and_return -1
+      end
+      it "should return false" do
+        expect( knx.write_to(group_address, value)).to eql(false)
+      end
+
+      it "should reset the connection" do
+        EIBConnection.any_instance.should_receive(:EIBReset)
+        knx.write_to(group_address, value)
+      end
+    end
   end
 
+  describe "#read_polling_loop" do
+    let(:knx) { KNX.new }
+
+    context "if we can't communicate with the groupaddress" do
+      before(:each) do
+        EIBConnection.any_instance.stub(:EIBOpenT_Group).and_return -1
+      end
+
+     it "should return empty address" do
+        (source, _) = knx.read_from group_address
+        expect(source).to be_a EIBAddr
+        expect(source.data).to be_zero
+      end
+
+      it "should return empty buffer" do
+        (_, buffer) = knx.read_from group_address
+        expect(buffer).to be_a EIBBuffer
+        expect(buffer.buffer).to be_empty
+      end
+    end
+
+    context "if we can't poll" do
+      before(:each) do
+        EIBConnection.any_instance.stub(:EIB_Poll_FD).and_return -1
+      end
+
+      it "should return empty address" do
+        (source, _) = knx.instance_eval{ read_polling_loop }
+        expect(source).to be_a EIBAddr
+        expect(source.data).to be_zero
+      end
+
+      it "should return empty buffer" do
+        (_, buffer) = knx.instance_eval{ read_polling_loop }
+        expect(buffer).to be_a EIBBuffer
+        expect(buffer.buffer).to be_empty
+      end
+    end
+    context "if poll complete fails" do
+      before(:each) do
+        EIBConnection.any_instance.stub(:EIB_Poll_FD).and_return 0
+        EIBConnection.any_instance.stub(:EIB_Poll_Complete).and_return -1
+      end
+
+      it "should return empty address" do
+        (source, _) = knx.instance_eval{ read_polling_loop }
+        expect(source).to be_a EIBAddr
+        expect(source.data).to be_zero
+      end
+
+      it "should return empty buffer" do
+        (_, buffer) = knx.instance_eval{ read_polling_loop }
+        expect(buffer).to be_a EIBBuffer
+        expect(buffer.buffer).to be_empty
+      end
+    end
+    context "if poll isn't complete / no data has arrived" do
+      before(:each) do
+        EIBConnection.any_instance.stub(:EIB_Poll_FD).and_return 0
+        EIBConnection.any_instance.stub(:EIB_Poll_Complete).and_return 0
+        # Kernel.stub(:sleep)
+      end
+
+      it "should sleep some time" do
+        pending "think about a solution"
+        Kernel.should_receive(:sleep)
+        knx.instance_eval{ read_polling_loop }
+      end
+    end
+
+    context "if poll fails" do
+      before(:each) do
+        EIBConnection.any_instance.stub(:EIB_Poll_FD).and_return 0
+        EIBConnection.any_instance.stub(:EIB_Poll_Complete).and_return -1
+        # Kernel.stub(:sleep)
+      end
+
+      it "should return empty address" do
+        (source, _) = knx.instance_eval{ read_polling_loop }
+        expect(source).to be_a EIBAddr
+        expect(source.data).to be_zero
+      end
+
+      it "should return empty buffer" do
+        (_, buffer) = knx.instance_eval{ read_polling_loop }
+        expect(buffer).to be_a EIBBuffer
+        expect(buffer.buffer).to be_empty
+      end
+    end
+
+    context "if get source fails" do
+      before(:each) do
+        EIBConnection.any_instance.stub(:EIB_Poll_FD).and_return 0
+        EIBConnection.any_instance.stub(:EIB_Poll_Complete).and_return 1
+        EIBConnection.any_instance.stub(:EIBGetAPDU_Src).and_return -1
+      end
+
+      it "should return empty address" do
+        (source, _) = knx.instance_eval{ read_polling_loop }
+        expect(source).to be_a EIBAddr
+        expect(source.data).to be_zero
+      end
+
+      it "should return empty buffer" do
+        (_, buffer) = knx.instance_eval{ read_polling_loop }
+        expect(buffer).to be_a EIBBuffer
+        expect(buffer.buffer).to be_empty
+      end
+    end
+
+  end
 end

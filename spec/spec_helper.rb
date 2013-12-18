@@ -4,7 +4,11 @@
 # loaded once.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-
+require 'simplecov'
+SimpleCov.start do
+  add_filter "/spec/"
+  add_filter "/vendor/"
+end
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib/knx"))
 
 RSpec.configure do |config|

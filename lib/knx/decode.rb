@@ -22,6 +22,6 @@ class KNX::Decode
     "#{(address >> 11) & 0xf}/#{(address >> 8) & 0x7}/#{address & 0xff}"
   end
   def self.physical_address(address)
-    "#{address >> 12}.#{(address >> 8) & 0xf}.#{address & 0xff}"
+    "#{(address >> 12) & 0x0f}.#{(address >> 8) & 0x0f}.#{address & 0xff}"
   end
 end

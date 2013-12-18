@@ -82,6 +82,7 @@ private
   def read_polling_loop
     src = EIBAddr.new
     buf = EIBBuffer.new
+    time_before = Time.now
     loop do
       begin
         if @knx_connection.EIB_Poll_FD() == -1
@@ -108,6 +109,8 @@ private
         # puts buf.inspect
         # sum of the data buffer should be != 0, if some data was captured
         break if buf.buffer.inject(:+) != 0
+        # break if more than a second elapsed
+        break if (Time.now - time_before).to_i > 0
       rescue Errno::EAGAIN => e
         next
       end
