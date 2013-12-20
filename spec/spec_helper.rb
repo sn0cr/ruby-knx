@@ -10,7 +10,8 @@ SimpleCov.start do
   add_filter "/vendor/"
 end
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib/knx"))
-
+# require shared examples
+Dir["./spec/support/**/*.rb"].sort.each {|f| require f}
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
   config.run_all_when_everything_filtered = true

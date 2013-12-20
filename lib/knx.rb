@@ -17,6 +17,15 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
+module Kernel
+  def KNX(path="ip:127.0.0.1")
+    knx = KNX.new path
+    yield knx
+    knx.close
+  end
+end
+
 class KNX
   require File.expand_path(File.join(File.dirname(__FILE__), "..", "vendor/EIBConnection"))
   base = File.expand_path File.dirname(__FILE__)
@@ -29,12 +38,16 @@ class KNX
     WRITE = 0x80
   end
 
+
+
   def initialize(path="ip:127.0.0.1")
     @knx_connection = EIBConnection.new()
     @knx_connection.EIBSocketURL(path)
   end
 
-
+  def close
+    @knx_connection.EIBClose()
+  end
 
   def read_from(group_address)
     source = EIBAddr.new
@@ -69,7 +82,7 @@ class KNX
       # exit(1)
       false
     else
-      data = [0, Flags::WRITE | value]
+      data = Encode.write value
       @knx_connection.EIBSendAPDU(data)
       true
     end

@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 # Copyright (c) 2013 C.Wahl
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -18,38 +19,20 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-class KNX::Encode
-  def self.group_address(group_address_string)
-   if m = group_address_string.match(/(\d*)\/(\d*)\/(\d*)/)
-       a, b, c = m[1].to_i, m[2].to_i, m[3].to_i
-       return ((a & 0x01f) << 11) | ((b & 0x07) << 8) | ((c & 0xff))
-     end
-  end
+require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib/knx"))
+require "date"
+require "yaml"
 
-  # Encode data to be written
-  def self.write(value)
-    if value.respond_to?(:unshift)
-      value.unshift([0,0x80]).flatten
-    else
-      [0, KNX::Flags::WRITE | value]
-    end
-  end
-  # formate a time to be written to the knx bus
-  def self.time(time)
-    bytes = Array.new
-    weekday = time.strftime("%u").to_i
-    bytes[0] = weekday * 32 + time.hour
-    bytes[1] = time.minute
-    bytes[2] = time.second
-    bytes
-  end
-
-  # formate date to be written to the knx bus
-  def self.date(date)
-    bytes = Array.new
-    bytes[0] = date.day
-    bytes[1] = date.month + 1
-    bytes[2] = date.year - 2000
-    bytes
-  end
+groupaddresses = YAML::load(
+  File.open(
+    File.expand_path(
+      File.join(File.dirname(__FILE__), './groupaddresses' )
+      )
+    )
+  )
+# current time
+time =  DateTime.parse(Time.now.to_s)
+KNX("ip:10.10.10.142") do |knx|
+  time_encoded = KNX::Encode.time time
+  knx.write_to groupaddresses[:time], time_encoded
 end

@@ -142,6 +142,10 @@ describe KNX do
       knx.write_to(group_address, value)
     end
 
+    it "should return true" do
+      expect(knx.write_to(group_address, value)).to eql(true)
+    end
+
     context "if we can't communicate with the groupaddress" do
       before(:each) do
         EIBConnection.any_instance.stub(:EIBOpenT_Group).and_return -1
@@ -266,6 +270,7 @@ describe KNX do
         expect(buffer.buffer).to be_empty
       end
     end
+
     context "if a invalid packet is received" do
       before(:each) do
         EIBConnection.any_instance.stub(:EIB_Poll_FD).and_return 0
@@ -286,4 +291,13 @@ describe KNX do
       end
     end
   end
+
+  describe "#close" do
+    let(:knx) { KNX.new }
+    it "should close the knx connection" do
+      EIBConnection.any_instance.should_receive(:EIBClose)
+      knx.close
+    end
+  end
+
 end
