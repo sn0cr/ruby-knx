@@ -97,11 +97,11 @@ private
     loop do
       begin
         if @knx_connection.EIB_Poll_FD() == -1
-          # puts "select failed"
+          # "select failed"
           break
         end
         if (len = @knx_connection.EIB_Poll_Complete) == -1
-          # puts "read failed"
+          # "read failed"
           break
         elsif len == 0
           # let them time to receive the message
@@ -110,14 +110,12 @@ private
         end
         len = @knx_connection.EIBGetAPDU_Src(buf, src)
         if len == -1
-          # puts "read failed"
+          # "read failed"
           break
         elsif len < 2
-          # puts "invalid packet"
+          # "invalid packet"
           break
         end
-        # puts src.inspect
-        # puts buf.inspect
         # sum of the data buffer should be != 0, if some data was captured
         break if buf.buffer.inject(:+) != 0
         # break if more than a second elapsed
