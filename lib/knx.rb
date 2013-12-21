@@ -38,8 +38,6 @@ class KNX
     WRITE = 0x80
   end
 
-
-
   def initialize(path="ip:127.0.0.1")
     @knx_connection = EIBConnection.new()
     @knx_connection.EIBSocketURL(path)

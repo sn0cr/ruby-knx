@@ -20,6 +20,29 @@
 
 require File.dirname(__FILE__) + '/spec_helper'
 
+describe "Kernel#KNX" do
+  before(:each) do
+    [:EIBSocketURL, :EIBOpenT_Group,:EIBSendAPDU,:EIBSocketURL,:EIB_Poll_FD,
+      :EIB_Poll_Complete, :EIBGetAPDU_Src, :EIBClose].map do |method|
+      EIBConnection.any_instance.stub(method).and_return 0
+    end
+  end
+
+  let(:path) { "ip:127.0.0.1" }
+
+  it "should open a knx connection" do
+    EIBConnection.any_instance.should_receive(:EIBSocketURL).with(path)
+    KNX { |k| }
+  end
+
+  it "should close the knx connection" do
+    EIBConnection.any_instance.should_receive(:EIBClose)
+    KNX { |k| }
+  end
+
+end
+
+
 describe KNX do
   describe "Constants should match" do
     it "Read flag should be 0" do
