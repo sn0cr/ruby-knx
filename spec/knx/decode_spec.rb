@@ -21,7 +21,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 describe KNX::Decode do
   describe "#group_address" do
-    it "should decode a physical properly" do
+    it "should decode a physical address properly" do
       expect(KNX::Decode.physical_address(4358)).to eql("1.1.6")
       expect(KNX::Decode.physical_address(7990)).to eql("1.15.54")
       expect(KNX::Decode.physical_address(-1)).to eql("15.15.255")
@@ -32,3 +32,4 @@ describe KNX::Decode do
     end
   end
 end
+
