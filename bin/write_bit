@@ -34,16 +34,17 @@ if ARGV[1]
 else
   value = 1
 end
-puts "value: #{value}"
+#puts "value: #{value}"
 
 if groupaddresses.has_key? ARGV[0]
   groupaddress = groupaddresses[ARGV[0]]
 else
-  STDERR.puts "Groupaddress not found in your groupaddress file!"
+  STDERR.puts "Groupaddress (#{ARGV[0]}) not found in your groupaddress file!"
   exit 1
 end
-puts "send #{value} to #{ARGV[0]}: #{groupaddress}"
+#puts "send #{value} to #{ARGV[0]}: #{groupaddress}"
 # send value
 KNX("ip:10.10.10.142") do |knx|
   knx.write_to groupaddress, value
 end
+puts "It's #{DateTime.parse(Time.now.to_s)} and #{value} was sent to #{ARGV[0]} (#{groupaddress})"
