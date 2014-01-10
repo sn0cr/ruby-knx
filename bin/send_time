@@ -31,7 +31,7 @@ groupaddresses = YAML::load(
     )
   )
 # current time
-time =  DateTime.parse(Time.now.to_s)
+time = DateTime.parse(Time.now.to_s)
 time_encoded = KNX::Encode.time time
 KNX("ip:10.10.10.142") do |knx|
   knx.write_to groupaddresses["time"], time_encoded

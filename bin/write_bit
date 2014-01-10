@@ -45,6 +45,17 @@ end
 #puts "send #{value} to #{ARGV[0]}: #{groupaddress}"
 # send value
 KNX("ip:10.10.10.142") do |knx|
-  knx.write_to groupaddress, value
+  if groupaddress.respond_to? :each
+    groupaddress.each do |ga|
+      knx.write_to ga, value
+    end
+  else
+    knx.write_to groupaddress, value
+  end
 end
+groupaddress = if groupaddress.respond_to? :each
+    groupaddress.join ", "
+  else
+    groupaddress
+  end
 puts "It's #{DateTime.parse(Time.now.to_s)} and #{value} was sent to #{ARGV[0]} (#{groupaddress})"
