@@ -31,3 +31,4 @@ bin/groupaddresses
 knx.sublime-project
 knx.sublime-workspace
 ext
+cron_log.log
