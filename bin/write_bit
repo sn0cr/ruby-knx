@@ -1,4 +1,5 @@
-# Copyright (c) 2013 C.Wahl
+#!/usr/bin/env ruby
+# Copyright (c) 2014 C. Wahl
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -17,40 +18,32 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+require "yaml"
+require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib/knx"))
 
-class KNX::Encode
-  def self.group_address(group_address_string)
-   if m = group_address_string.match(/(\d*)\/(\d*)\/(\d*)/)
-       a, b, c = m[1].to_i, m[2].to_i, m[3].to_i
-       return ((a & 0x01f) << 11) | ((b & 0x07) << 8) | ((c & 0xff))
-     end
-  end
+groupaddresses = YAML::load(
+  File.open(
+    File.expand_path(
+      File.join(File.dirname(__FILE__), './groupaddresses' )
+      )
+    )
+  )
 
-  # Encode data to be written
-  def self.write(value)
-    if value.respond_to?(:unshift)
-      # Prepend array with [0, 0x80]
-      value.unshift([0,0x80]).flatten
-    else
-      [0, KNX::Flags::WRITE | value]
-    end
-  end
-  # formate a time to be written to the knx bus
-  def self.time(time)
-    bytes = Array.new
-    weekday = time.strftime("%u").to_i
-    bytes[0] = weekday * 32 + time.hour
-    bytes[1] = time.minute
-    bytes[2] = time.second
-    bytes
-  end
+if ARGV[1]
+  value = ARGV[1].to_i
+else
+  value = 1
+end
+puts "value: #{value}"
 
-  # formate date to be written to the knx bus
-  def self.date(date)
-    bytes = Array.new
-    bytes[0] = date.day
-    bytes[1] = date.month + 1
-    bytes[2] = date.year - 2000
-    bytes
-  end
+if groupaddresses.has_key? ARGV[0]
+  groupaddress = groupaddresses[ARGV[0]]
+else
+  STDERR.puts "Groupaddress not found in your groupaddress file!"
+  exit 1
+end
+puts "send #{value} to #{ARGV[0]}: #{groupaddress}"
+# send value
+KNX("ip:10.10.10.142") do |knx|
+  knx.write_to groupaddress, value
 end
