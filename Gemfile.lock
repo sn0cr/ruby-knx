@@ -1,6 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    RubySunrise (0.3)
+      tzinfo
     activesupport (4.0.2)
       i18n (~> 0.6, >= 0.6.4)
       minitest (~> 4.2)
@@ -36,6 +38,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  RubySunrise (~> 0.3)
   rspec
   simplecov
   whenever
