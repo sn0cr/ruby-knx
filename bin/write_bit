@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# Copyright (c) 2014 C. Wahl
+# Copyright (c) 2014 C.Wahl
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -18,6 +18,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
 require "yaml"
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib/knx"))
 
@@ -29,33 +30,24 @@ groupaddresses = YAML::load(
     )
   )
 
-if ARGV[1]
-  value = ARGV[1].to_i
-else
-  value = 1
-end
-#puts "value: #{value}"
+value = if ARGV[1]
+   ARGV[1].to_i
+  else
+    1
+  end
 
 if groupaddresses.has_key? ARGV[0]
-  groupaddress = groupaddresses[ARGV[0]]
+  groupaddresses = [groupaddresses[ARGV[0]]].flatten
 else
   STDERR.puts "Groupaddress (#{ARGV[0]}) not found in your groupaddress file!"
   exit 1
 end
-#puts "send #{value} to #{ARGV[0]}: #{groupaddress}"
+
 # send value
 KNX("ip:10.10.10.142") do |knx|
-  if groupaddress.respond_to? :each
-    groupaddress.each do |ga|
-      knx.write_to ga, value
-    end
-  else
-    knx.write_to groupaddress, value
+  groupaddresses.each do |ga|
+    knx.write_to ga, value
   end
 end
-groupaddress = if groupaddress.respond_to? :each
-    groupaddress.join ", "
-  else
-    groupaddress
-  end
-puts "It's #{DateTime.parse(Time.now.to_s)} and #{value} was sent to #{ARGV[0]} (#{groupaddress})"
+
+puts "It's #{DateTime.parse(Time.now.to_s)} and #{value} was sent to #{ARGV[0]} (#{groupaddresses.join(", ")})"
