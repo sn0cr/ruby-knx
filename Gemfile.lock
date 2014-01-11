@@ -41,4 +41,5 @@ DEPENDENCIES
   RubySunrise (~> 0.3)
   rspec
   simplecov
+  tzinfo
   whenever

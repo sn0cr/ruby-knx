@@ -1,4 +1,4 @@
-# Copyright (c) 2013 C.Wahl
+# Copyright (c) 2013 - 2014 C.Wahl
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -23,5 +23,14 @@ class KNX::Decode
   end
   def self.physical_address(address)
     "#{(address >> 12) & 0x0f}.#{(address >> 8) & 0x0f}.#{address & 0xff}"
+  end
+
+  # return whether the bit is set or not
+  def self.bit(data)
+    if data[1]
+      (data[1] & 0x01) > 0
+    else
+      nil
+    end
   end
 end
