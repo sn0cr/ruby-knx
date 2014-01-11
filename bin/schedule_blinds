@@ -26,16 +26,23 @@ end
 
 # require 'sun_times'
 require relative_to_base("vendor/solareventcalculator")
+require "yaml"
+config = YAML::load(
+  File.open(relative_to_base("bin/groupaddresses"))
+    )["schedule_blinds"]
 
-latitude = 48.012317
-longitude = 11.9677
+LATITUDE = config["latitude"]
+LONGITUDE = config["longitude"]
+BLIND_COMMAND = config["command"]
+TIMEZONE = config["timezone"]
+
 DAY_IN_SECONDS = 3600 * 24
 THRESHHOLD = 3600
 
-time_zone = TZInfo::Country.get('DE').zone_identifiers.first
+time_zone = TZInfo::Country.get(TIMEZONE).zone_identifiers.first
 
 date = DateTime.parse Time.now.to_s
-calc = SolarEventCalculator.new(date, latitude, longitude)
+calc = SolarEventCalculator.new(date, LATITUDE, LONGITUDE)
 
 rise_time = calc.compute_official_sunrise time_zone
 set_time = calc.compute_official_sunset time_zone
@@ -43,7 +50,7 @@ set_time = calc.compute_official_sunset time_zone
 
 if date > set_time
   date = DateTime.parse (Time.now + DAY_IN_SECONDS).to_s
-  calc = SolarEventCalculator.new(date, latitude, longitude)
+  calc = SolarEventCalculator.new(date, LATITUDE, LONGITUDE)
 
   rise_time = calc.compute_official_sunrise time_zone
   set_time = calc.compute_official_sunset time_zone
@@ -63,8 +70,9 @@ end
 
 # run that job:
 def run_at(time, command)
-  system "echo '#{command}' | at #{time.strftime("%H")}#{time.strftime("%M")} #{time.strftime("%b").downcase} #{time.strftime("%e")}"
+  sucessful = system "echo '#{command}' | at #{time.strftime("%H")}#{time.strftime("%M")} #{time.strftime("%b").downcase} #{time.strftime("%e")}"
+  puts "Command: #{command} #{sucessful ? "was" : "wasn't"} sucessfully enqued."
 end
 
-run_at set_time, set_command("blind")
-run_at rise_time, rise_command("blind")
+run_at set_time, set_command(BLIND_COMMAND)
+run_at rise_time, rise_command(BLIND_COMMAND)
