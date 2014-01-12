@@ -243,13 +243,15 @@ describe KNX do
     context "if poll isn't complete / no data has arrived" do
       before(:each) do
         EIBConnection.any_instance.stub(:EIB_Poll_FD).and_return 0
-        EIBConnection.any_instance.stub(:EIB_Poll_Complete).and_return 0
-        # Kernel.stub(:sleep)
+        EIBConnection.any_instance.stub(:EIB_Poll_Complete).and_return(0, -1)
+        EIBConnection.any_instance.stub(:EIBGetAPDU_Src).and_return 0
+
+        knx.stub(:sleep)
       end
 
       it "should sleep some time" do
-        pending "think about a solution"
-        Kernel.should_receive(:sleep)
+        # pending "think about a solution"
+        knx.should_receive(:sleep).with 0.00000001
         knx.instance_eval{ read_polling_loop }
       end
     end
