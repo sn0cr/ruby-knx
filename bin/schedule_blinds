@@ -24,15 +24,17 @@ def relative_to_base(path)
 end
 
 
-# require 'sun_times'
 require relative_to_base("vendor/solareventcalculator")
 require "yaml"
+
 config = YAML::load(
   File.open(relative_to_base("bin/groupaddresses"))
     )["schedule_blinds"]
 
 LATITUDE = config["latitude"]
 LONGITUDE = config["longitude"]
+SET_COMMAND = config["command"]["set"]
+RISE_COMMAND = config["command"]["rise"]
 BLIND_COMMAND = config["command"]
 TIMEZONE = config["timezone"]
 
@@ -74,5 +76,5 @@ def run_at(time, command)
   puts "Command: #{command} #{sucessful ? "was" : "wasn't"} sucessfully enqued."
 end
 
-run_at set_time, set_command(BLIND_COMMAND)
-run_at rise_time, rise_command(BLIND_COMMAND)
+run_at set_time, set_command(SET_COMMAND)
+run_at rise_time, rise_command(RISE_COMMAND)
