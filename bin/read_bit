@@ -33,6 +33,7 @@ elsif ARGV[0] =~ /(\d*)\/(\d*)\/(\d*)/
   [ARGV[0]]
 else
   STDERR.puts "No groupaddress found! (Your input was '#{ARGV[0]}')"
+  exit 1
 end
 
 KNX(config["knx_ip"]) do |knx|
