@@ -39,10 +39,41 @@ describe KNX::Decode do
 
 
     it "should decode a bit properly" do
-      puts data_true.length
       expect(KNX::Decode.bit(data_true)).to eql( true)
       expect(KNX::Decode.bit(data_false)).to eql false
       expect(KNX::Decode.bit(data_empty)).to eql nil
+    end
+  end
+
+  describe "#float" do
+    to_bit = ->(val) {val.to_i(2)}
+    let(:high_max) { 670760.96 }
+    let(:low_max) { -671088.64 }
+    let(:zero) { 0 }
+
+    def create_data_array(bit_string)
+      b1 = bit_string [0..7]
+      b2 = bit_string [8..15]
+      [0,0, b1.to_i(2), b2.to_i(2)]
+    end
+
+    let(:data_high_max) do
+      create_data_array "0111111111111111"
+    end
+
+    let(:data_low_max) do
+      create_data_array "1111100000000000"
+    end
+
+    let(:data_all_bytes) do
+      create_data_array "1111111111111111"
+    end
+
+    it "decodes float properly" do
+      decode = -> (value) { KNX::Decode.float( value)}
+      expect(decode.call(data_high_max)).to eql(high_max)
+      expect(decode.call(data_low_max)).to eql(low_max)
+      expect(decode.call(data_all_bytes)).to eql(low_max)
     end
   end
 end

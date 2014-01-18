@@ -29,7 +29,7 @@ require "yaml"
 
 config = YAML::load(
   File.open(relative_to_base("bin/groupaddresses"))
-    )["schedule_blinds"]
+)["schedule_blinds"]
 
 LATITUDE = config["latitude"]
 LONGITUDE = config["longitude"]

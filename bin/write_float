@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 # Copyright (c) 2014 C.Wahl
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -18,31 +19,49 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# if this was included as first file from this library define new empty class
-unless Kernel.const_defined? :KNX
-  class KNX
+require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib/script_utilities/script_utilities"))
 
+include KNX::ScriptUtilities
+
+require_relative_to_base "lib/knx"
+
+config = read_yaml relative_to_base "bin/groupaddresses"
+
+groupaddresses = if config.has_key? ARGV[0]
+  [config[ARGV[0]]].flatten
+elsif ARGV[0] =~ /(\d*)\/(\d*)\/(\d*)/
+  [ARGV[0]]
+else
+  STDERR.puts "No groupaddress found! (Your input was '#{ARGV[0]}')"
+  exit 1
+end
+
+# for proper output remember input formatting
+percent = false
+
+value = if ARGV[1]
+  value = /(?<value>[\d.]+)(?<percent>[%]?)/.match ARGV[1]
+  if value[:percent] == "%"
+    percent = true
+    value[:value].to_f * 100
+  else
+    value[:value].to_f
+  end
+else
+  1000.0
+end
+
+# send value
+KNX(config["knx_ip"]) do |knx|
+  groupaddresses.each do |ga|
+    encoded_value = KNX::Encode.float(value)
+    value = KNX::Decode.float [0,0] + encoded_value
+    if percent
+      print "#{value/100}% (#{value}) "
+    else
+      print "#{value} "
+    end
+    puts "#{knx.write_to(ga, encoded_value)? 'was':'wasn\'t'} written to #{ga} successfully."
   end
 end
 
-module KNX::ScriptUtilities
-
-  module_function
-
-  def knx_base
-    File.expand_path(File.join(File.dirname(__FILE__), "../.." ))
-  end
-
-  def relative_to_base(path)
-    File.join( knx_base, path )
-  end
-
-  def require_relative_to_base(path)
-    require relative_to_base(path)
-  end
-
-  def read_yaml(file)
-    require "yaml"
-    YAML::load_file file
-  end
-end

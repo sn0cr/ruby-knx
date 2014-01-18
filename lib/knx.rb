@@ -31,6 +31,7 @@ class KNX
   base = File.expand_path File.dirname(__FILE__)
   require File.join(base, "knx/encode")
   require File.join(base, "knx/decode")
+  require File.join(base, "knx/encode_utilities")
 
   module Flags
     READ = 0x00

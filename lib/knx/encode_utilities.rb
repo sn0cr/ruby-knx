@@ -17,32 +17,17 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-
-# if this was included as first file from this library define new empty class
-unless Kernel.const_defined? :KNX
-  class KNX
-
-  end
-end
-
-module KNX::ScriptUtilities
+module KNX::EncodeUtilities
 
   module_function
 
-  def knx_base
-    File.expand_path(File.join(File.dirname(__FILE__), "../.." ))
+  def to_binary_string(byte, length)
+    max_size_of_bits_per_length = 2**length-1
+    if byte == 0 || byte > max_size_of_bits_per_length
+      "#{"0"*length}"
+    else
+      "#{"0"*(length-(byte.to_s(2)).length)}#{byte.to_s(2)}"
+    end
   end
 
-  def relative_to_base(path)
-    File.join( knx_base, path )
-  end
-
-  def require_relative_to_base(path)
-    require relative_to_base(path)
-  end
-
-  def read_yaml(file)
-    require "yaml"
-    YAML::load_file file
-  end
 end

@@ -1,4 +1,4 @@
-# Copyright (c) 2013 C.Wahl
+# Copyright (c) 2013 - 2014 C.Wahl
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -47,6 +47,20 @@ describe KNX::Encode do
     let(:date) { DateTime.parse(Time.now.to_s) }
     it "should encode a time object properly" do
       expect(KNX::Encode.date(date)).to eql([date.day, (date.month + 1), (date.year - 2000)])
+    end
+  end
+
+  describe "#float" do
+    it "encodes float properly" do
+      encode = -> (value) { KNX::Encode.float(value)}
+      expect(encode.call(0)).to eql([ 0,0 ])
+      expect(encode.call(670760)).to eql([127, 254])
+      expect(encode.call(-671088)).to eql([128, 0])
+      expect(encode.call(0.0)).to eql([ 0,0 ])
+      expect(encode.call(670760.96)).to eql([127, 255])
+      expect(encode.call(-671088.64)).to eql([248, 0])
+      expect(encode.call(1.0)).to eql([0, 100])
+      expect(encode.call(-1.0)).to eql([128, 100])
     end
   end
 end
