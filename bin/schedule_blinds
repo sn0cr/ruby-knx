@@ -26,6 +26,7 @@ end
 
 require relative_to_base("vendor/solareventcalculator")
 require "yaml"
+require "date"
 
 config = YAML::load(
   File.open(relative_to_base("bin/groupaddresses"))
@@ -51,10 +52,15 @@ set_time = calc.compute_nautical_sunset time_zone
 
 
 if date > set_time
-  date = DateTime.parse (Time.now + DAY_IN_SECONDS).to_s
+  date = (Time.now + DAY_IN_SECONDS).to_datetime
   calc = SolarEventCalculator.new(date, LATITUDE, LONGITUDE)
 
   rise_time = calc.compute_nautical_sunrise time_zone
+  puts "weekday #{[0,6].include? rise_time.wday} hour: #{rise_time.hour < 9}"
+
+  rise_time = if [0,6].include?(rise_time.wday) && (rise_time.hour < 9)
+    DateTime.new(rise_time.year,rise_time.mon,rise_time.day,9, rise_time.min)
+  end
   set_time = calc.compute_nautical_sunset time_zone
 end
 
