@@ -19,21 +19,29 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib/knx"))
-require "date"
-require "yaml"
+require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib/script_utilities/script_utilities"))
 
-groupaddresses = YAML::load(
-  File.open(
-    File.expand_path(
-      File.join(File.dirname(__FILE__), './groupaddresses' )
-      )
-    )
-  )
+include KNX::ScriptUtilities
+
+require_relative_to_base "lib/knx"
+
+config = read_yaml relative_to_base "bin/groupaddresses"
+
+groupaddresses = if config.has_key? ARGV[0]
+  [config[ARGV[0]]].flatten
+elsif ARGV[0] =~ /(\d*)\/(\d*)\/(\d*)/
+  [ARGV[0]]
+else
+  STDERR.puts "No groupaddress found! (Your input was '#{ARGV[0]}')"
+  exit 1
+end
+
 # current time
 time = DateTime.parse(Time.now.to_s)
 time_encoded = KNX::Encode.time time
-KNX("ip:10.10.10.142") do |knx|
-  knx.write_to groupaddresses["time"], time_encoded
+KNX(config["knx_ip"]) do |knx|
+  groupaddresses.each do |ga|
+    knx.write_to ga, time_encoded
+  end
 end
 puts "It's #{time} and that was sent: #{time_encoded.flatten.map{|b| b.to_s(16)}.join(" ")}"

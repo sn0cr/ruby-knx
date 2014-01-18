@@ -19,16 +19,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-require "yaml"
-require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib/knx"))
+require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib/script_utilities/script_utilities"))
 
-groupaddresses = YAML::load(
-  File.open(
-    File.expand_path(
-      File.join(File.dirname(__FILE__), './groupaddresses' )
-      )
-    )
-  )
+include KNX::ScriptUtilities
+
+require_relative_to_base "lib/knx"
+
+
+config = read_yaml relative_to_base "bin/groupaddresses"
 
 value = if ARGV[1]
    ARGV[1].to_i
@@ -36,15 +34,18 @@ value = if ARGV[1]
     1
   end
 
-if groupaddresses.has_key? ARGV[0]
-  groupaddresses = [groupaddresses[ARGV[0]]].flatten
+groupaddresses = if config.has_key? ARGV[0]
+  [config[ARGV[0]]].flatten
+elsif ARGV[0] =~ /(\d*)\/(\d*)\/(\d*)/
+  [ARGV[0]]
 else
-  STDERR.puts "Groupaddress (#{ARGV[0]}) not found in your groupaddress file!"
+  STDERR.puts "No groupaddress found! (Your input was '#{ARGV[0]}')"
   exit 1
 end
 
+
 # send value
-KNX("ip:10.10.10.142") do |knx|
+KNX(config["knx_ip"]) do |knx|
   groupaddresses.each do |ga|
     knx.write_to ga, value
   end
