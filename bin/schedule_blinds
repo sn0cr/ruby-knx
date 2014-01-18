@@ -56,8 +56,6 @@ if date > set_time
   calc = SolarEventCalculator.new(date, LATITUDE, LONGITUDE)
 
   rise_time = calc.compute_nautical_sunrise time_zone
-  puts "weekday #{[0,6].include? rise_time.wday} hour: #{rise_time.hour < 9}"
-
   rise_time = if [0,6].include?(rise_time.wday) && (rise_time.hour < 9)
     DateTime.new(rise_time.year,rise_time.mon,rise_time.day,9, rise_time.min)
   end
