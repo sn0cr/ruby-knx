@@ -46,16 +46,16 @@ time_zone = TZInfo::Country.get(TIMEZONE).zone_identifiers.first
 date = DateTime.parse Time.now.to_s
 calc = SolarEventCalculator.new(date, LATITUDE, LONGITUDE)
 
-rise_time = calc.compute_official_sunrise time_zone
-set_time = calc.compute_official_sunset time_zone
+rise_time = calc.calc.compute_nautical_sunrise time_zone
+set_time = calc.compute_nautical_sunset time_zone
 
 
 if date > set_time
   date = DateTime.parse (Time.now + DAY_IN_SECONDS).to_s
   calc = SolarEventCalculator.new(date, LATITUDE, LONGITUDE)
 
-  rise_time = calc.compute_official_sunrise time_zone
-  set_time = calc.compute_official_sunset time_zone
+  rise_time = calc.compute_nautical_sunrise time_zone
+  set_time = calc.compute_nautical_sunset time_zone
 end
 
 puts "Suns sets: #{set_time}" if Time.now < set_time.to_time
