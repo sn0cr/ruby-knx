@@ -50,6 +50,7 @@ module KNX::Decode
 
     # convert to bit array with full byte ( 8 bits ) length
     byte_string = KNX::EncodeUtilities.to_binary_string(b1, 8) << KNX::EncodeUtilities.to_binary_string(b2, 8)
+
     bit_array = byte_string.split("").map(&to_bit)
     exponent = to_integer bit_array[1..4]
 
@@ -66,13 +67,35 @@ module KNX::Decode
           [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         else
           mantissa
-        end)
+        end
+      )
     # value = to_integer mantissa
     # make it negative if the first bit is set
     value = - value if bit_array[0] == 1
     # float value after the equation from the standard (FloatValue = (0,01*M)*2^(E))
     (0.01*value)*2**exponent
   end
+
+  def two_byte_int(data)
+    # shortcuts for bytes
+    b1, b2 = bytes 2..3, from: data
+
+    # correct byte 2
+    # subtract byte 2 from 256 to get the positive representation of that byte if it's negative
+    b2 = 256 + b2 if b2 < 0
+
+    # convert to bit array with full byte ( 8 bits ) length
+    byte_string = KNX::EncodeUtilities.to_binary_string(b1, 8) << KNX::EncodeUtilities.to_binary_string(b2, 8)
+     byte_string.to_i 2
+  end
+
+  def byte_int(data)
+    # shortcuts for bytes
+    b1 = bytes(2..2, from: data).first
+    b1 = 256 + b1 if b1 < 0
+    b1
+  end
+
 
   private_class_method
 

@@ -1,0 +1,70 @@
+#!/usr/bin/env ruby
+# Copyright (c) 2014 C.Wahl
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib/script_utilities/script_utilities"))
+
+include KNX::ScriptUtilities
+
+require_relative_to_base "lib/knx"
+
+config = read_yaml relative_to_base "bin/groupaddresses"
+
+groupaddresses = if config.has_key? ARGV[0]
+  [config[ARGV[0]]].flatten
+elsif ARGV[0] =~ /(\d*)\/(\d*)\/(\d*)/
+  [ARGV[0]]
+else
+  STDERR.puts "No groupaddress found! (Your input was '#{ARGV[0]}')"
+  exit 1
+end
+
+
+# for proper output remember input formatting
+percent = false
+
+value = if ARGV[1]
+  value = /(?<value>[\d]+)(?<percent>[%]?)/.match ARGV[1]
+  if value[:percent] == "%"
+    percent = true
+    KNX::EncodeUtilities.scale value[:value].to_i
+  else
+    value[:value].to_i
+  end
+else
+  255
+end
+
+
+# send value
+KNX(config["knx_ip"]) do |knx|
+  groupaddresses.each do |ga|
+    encoded_value = KNX::Encode.byte_int(value)
+    value = KNX::Decode.byte_int [0,0] + encoded_value
+
+    if percent
+      print "#{KNX::EncodeUtilities.scale value, from: 0..255, to: 0..100}% (#{value}) "
+    else
+      print "#{value} "
+    end
+    puts "#{knx.write_to(ga, encoded_value)? 'was':'wasn\'t'} written to #{ga} successfully."
+  end
+end
+

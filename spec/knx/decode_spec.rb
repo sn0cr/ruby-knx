@@ -76,5 +76,45 @@ describe KNX::Decode do
       expect(decode.call(data_all_bytes)).to eql(low_max)
     end
   end
+
+  describe "#two_byte_int" do
+    let(:high_max) { 65535 }
+    let(:low_max) { 0 }
+
+    let(:data_high_max) do
+      [0,0, 255, 255]
+    end
+
+    let(:data_low_max) do
+      [0,0,0,0]
+    end
+
+    it "decodes a 2 byte integer properly" do
+      expect(KNX::Decode.two_byte_int(data_high_max)).to eql(high_max)
+      expect(KNX::Decode.two_byte_int(data_low_max)).to eql(low_max)
+    end
+  end
+
+  describe "#byte_int" do
+    let(:high_max) { 255 }
+    let(:low_max) { 0 }
+
+    let(:data_high_max) do
+      [0,0,255]
+    end
+
+    let(:data_low_max) do
+      [0,0,0]
+    end
+
+    let(:data_high_invalid_max) do
+      [0,0,-1]
+    end
+    it "decodes a byte integer properly" do
+      expect(KNX::Decode.byte_int(data_high_max)).to eql(high_max)
+      expect(KNX::Decode.byte_int(data_low_max)).to eql(low_max)
+      expect(KNX::Decode.byte_int(data_high_invalid_max)).to eql(high_max)
+    end
+  end
 end
 

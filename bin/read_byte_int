@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 # Copyright (c) 2014 C.Wahl
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -17,28 +18,31 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-module KNX::EncodeUtilities
 
-  module_function
+require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib/script_utilities/script_utilities"))
 
-  def to_binary_string(byte, length)
-    max_size_of_bits_per_length = 2**length-1
-    if byte == 0 || byte > max_size_of_bits_per_length
-      "#{"0"*length}"
-    else
-      "#{"0"*(length-(byte.to_s(2)).length)}#{byte.to_s(2)}"
-    end
-  end
+include KNX::ScriptUtilities
 
+require_relative_to_base "lib/knx"
 
-  # from stackoverflow: http://stackoverflow.com/questions/5294955
-  #        (b-a)(x - min)
-  # f(x) = --------------  + a
-  #           max - min
-  def scale(value,opts={from: 0..100, to: 0..255})
-    from, to = opts[:from], opts[:to]
-    numerator = (to.max-to.min)*(value-from.min)
-    denominator = from.max - from.min
-    (numerator / denominator) + to.min
+config = read_yaml relative_to_base "bin/groupaddresses"
+
+groupaddresses = if config.has_key? ARGV[0]
+  [config[ARGV[0]]].flatten
+elsif ARGV[0] =~ /(\d*)\/(\d*)\/(\d*)/
+  [ARGV[0]]
+else
+  STDERR.puts "No groupaddress found! (Your input was '#{ARGV[0]}')"
+  exit 1
+end
+
+# read value
+KNX(config["knx_ip"]) do |knx|
+  groupaddresses.each do |ga|
+    (src, buffer) = knx.read_from ga
+    source = KNX::Decode.physical_address src.data
+    buffer_decoded = KNX::Decode.byte_int buffer.buffer
+    scaled_value = KNX::EncodeUtilities.scale buffer_decoded, from: 0..255, to: 0..100
+    puts "Value of #{ga}: #{buffer_decoded} (#{scaled_value}%) (#{buffer.buffer}) (That answer came from '#{source}'.)"
   end
 end

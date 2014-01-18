@@ -82,6 +82,25 @@ module KNX::Encode
     end
   end
 
+  def two_byte_int(value)
+    # make it positive
+    value = value.abs
+
+    # get bits
+    num_string = KNX::EncodeUtilities.to_binary_string value, 16
+    # return byte array
+    [num_string[0..7].to_i(2), num_string[8..15].to_i(2)]
+  end
+
+  def byte_int(value)
+    # make it positive
+    value = value.abs
+
+    # get bits
+    num_string = KNX::EncodeUtilities.to_binary_string value, 8
+    # return byte array
+    [num_string[0..7].to_i(2)]
+  end
   private_class_method
 
   def negative?(value)
