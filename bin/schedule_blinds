@@ -18,67 +18,106 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib/script_utilities/script_utilities"))
 
-def relative_to_base(path)
-  File.expand_path(File.join(File.dirname(__FILE__), "..", path ))
-end
+include KNX::ScriptUtilities
 
-
-require relative_to_base("vendor/solareventcalculator")
-require "yaml"
-require "date"
-
-config = YAML::load(
-  File.open(relative_to_base("bin/groupaddresses"))
-)["schedule_blinds"]
+require_relative_to_base "vendor/solareventcalculator"
+require_relative_to_base "lib/knx"
+GROUPADDRESSES = read_yaml( relative_to_base( "bin/groupaddresses"))
+config = GROUPADDRESSES["schedule_blinds"]
 
 LATITUDE = config["latitude"]
 LONGITUDE = config["longitude"]
-SET_COMMAND = config["command"]["set"]
-RISE_COMMAND = config["command"]["rise"]
 BLIND_COMMAND = config["command"]
 TIMEZONE = config["timezone"]
 
 DAY_IN_SECONDS = 3600 * 24
 THRESHHOLD = 3600
+WEEKEND = [0,6]
+WEEKEND_EARLIEST_RISETIME =  9
+WEEK_EARLIEST_RISETIME = 7
 
-time_zone = TZInfo::Country.get(TIMEZONE).zone_identifiers.first
-
-date = DateTime.parse Time.now.to_s
-calc = SolarEventCalculator.new(date, LATITUDE, LONGITUDE)
-
-rise_time = calc.compute_nautical_sunrise time_zone
-set_time = calc.compute_nautical_sunset time_zone
+# Internals
+RISE_ARGUMENT = "rise"
+SET_ARGUMENT = "set"
+# current_date = DateTime.new(2014,7,9,WEEK_EARLIEST_RISETIME, 0)
 
 
-if date > set_time
-  date = (Time.now + DAY_IN_SECONDS).to_datetime
+def calculate_times(date)
   calc = SolarEventCalculator.new(date, LATITUDE, LONGITUDE)
+  time_zone = TZInfo::Country.get(TIMEZONE).zone_identifiers.first
 
-  rise_time = calc.compute_nautical_sunrise time_zone
-  rise_time = if [0,6].include?(rise_time.wday) && (rise_time.hour < 9)
-    DateTime.new(rise_time.year,rise_time.mon,rise_time.day,9, rise_time.min)
+  rise_time = calc.compute_official_sunrise time_zone
+  rise_time = if WEEKEND.include?(rise_time.wday) && (rise_time.hour < WEEKEND_EARLIEST_RISETIME)
+    DateTime.new(rise_time.year,rise_time.mon,rise_time.day,WEEKEND_EARLIEST_RISETIME, rise_time.min)
+  elsif rise_time.hour < WEEK_EARLIEST_RISETIME
+    DateTime.new(rise_time.year,rise_time.mon,rise_time.day,WEEK_EARLIEST_RISETIME, 0)
+  else
+    rise_time
   end
-  set_time = calc.compute_nautical_sunset time_zone
+  set_time = calc.compute_official_sunset time_zone
+  dusk = calc.compute_civil_sunset time_zone
+  set_time = set_time + (dusk - set_time).to_f / 2
+  [rise_time, set_time]
 end
-
-puts "Suns sets: #{set_time}" if Time.now < set_time.to_time
-puts "Suns rise: #{rise_time}" if Time.now < rise_time.to_time
 
 # blinds up
-def rise_command(groupaddress)
-  "#{relative_to_base('bin/write_bit')} #{groupaddress} 0"
+def rise_command
+  "#{__FILE__} #{RISE_ARGUMENT}"
 end
 
-def set_command(groupaddress)
-  "#{relative_to_base('bin/write_bit')} #{groupaddress} 1"
+def set_command
+  "#{__FILE__} #{SET_ARGUMENT}"
 end
 
 # run that job:
 def run_at(time, command)
   sucessful = system "echo '#{command}' | at #{time.strftime("%H")}#{time.strftime("%M")} #{time.strftime("%b").downcase} #{time.strftime("%e")}"
-  puts "Command: #{command} #{sucessful ? "was" : "wasn't"} sucessfully enqued."
+  puts "Command: '#{command}' #{sucessful ? "was" : "wasn't"} sucessfully enqued."
 end
 
-run_at set_time, set_command(SET_COMMAND)
-run_at rise_time, rise_command(RISE_COMMAND)
+def schedule_blinds
+  current_date = DateTime.parse Time.now.to_s
+
+  (rise_time, set_time) = calculate_times current_date
+  if current_date > set_time
+    current_date = DateTime.parse (Time.now + DAY_IN_SECONDS).to_s
+    (rise_time, set_time) = calculate_times current_date
+  end
+
+  puts "Suns sets: #{set_time}" if Time.now < set_time.to_time
+  puts "Suns rise: #{rise_time}" if Time.now < rise_time.to_time
+
+  run_at set_time, set_command
+  run_at rise_time, rise_command
+end
+
+def rise_command_called
+  write_to_blinds 0
+end
+
+def set_command_called
+  write_to_blinds 255
+end
+
+def write_to_blinds(value)
+  KNX(GROUPADDRESSES["knx_ip"]) do |knx|
+    GROUPADDRESSES["blinds"].each do |ga|
+      encoded_value = KNX::Encode.byte_int(value)
+      value = KNX::Decode.byte_int [0,0] + encoded_value
+      print "#{KNX::EncodeUtilities.scale value, from: 0..255, to: 0..100}% (#{value}) "
+      puts "#{knx.write_to(ga, encoded_value)? 'was':'wasn\'t'} written to #{ga} successfully."
+    end
+  end
+end
+
+if arg = ARGV[0]
+  if arg.strip == RISE_ARGUMENT
+    rise_command_called
+  elsif arg.strip == SET_ARGUMENT
+    set_command_called
+  end
+else
+  schedule_blinds
+end
