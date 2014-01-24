@@ -22,6 +22,8 @@ module KNX::EncodeUtilities
   module_function
 
   def to_binary_string(byte, length)
+    # make the byte absolute
+    byte = byte.abs
     max_size_of_bits_per_length = 2**length-1
     if byte == 0 || byte > max_size_of_bits_per_length
       "#{"0"*length}"
@@ -35,10 +37,17 @@ module KNX::EncodeUtilities
   #        (b-a)(x - min)
   # f(x) = --------------  + a
   #           max - min
-  def scale(value,opts={from: 0..100, to: 0..255})
+  def scale(value, opts={from: 0.0..100.0, to: 0.0..255.0})
+    opts[:from] ||= 0.0..100.0
+    opts[:to] ||= 0.0..255.0
     from, to = opts[:from], opts[:to]
     numerator = (to.max-to.min)*(value-from.min)
     denominator = from.max - from.min
-    (numerator / denominator) + to.min
+    result = (numerator / denominator) + to.min
+    if value.is_a? Integer
+      result.to_i
+    else
+      result
+    end
   end
 end
