@@ -34,7 +34,7 @@ TIMEZONE = config["timezone"]
 
 DAY_IN_SECONDS = 3600 * 24
 THRESHHOLD = 3600
-WEEKEND = [0,6]
+WEEKEND = [0]
 WEEKEND_EARLIEST_RISETIME =  9
 WEEK_EARLIEST_RISETIME = 7
 
@@ -57,8 +57,8 @@ def calculate_times(date)
     rise_time
   end
   set_time = calc.compute_official_sunset time_zone
-  dusk = calc.compute_civil_sunset time_zone
-  set_time = set_time + (dusk - set_time).to_f / 2
+  # dusk = calc.compute_civil_sunset time_zone
+  # set_time = set_time + (dusk - set_time).to_f / 2
   [rise_time, set_time]
 end
 
