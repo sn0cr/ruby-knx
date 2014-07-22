@@ -57,6 +57,6 @@ describe KNX::EncodeUtilities do
       expect(KNX::EncodeUtilities.scale(1, to: 0..1000, from: 0..10)).to eql(100)
       expect(KNX::EncodeUtilities.scale(1.0, to: 0..1000,from: 0..1000)).to eql(1.0)
       expect(KNX::EncodeUtilities.scale(1, to: 0..1000,from: 0..1000)).to eql(1)
-
+    end
   end
 end

@@ -57,14 +57,14 @@ class KNX
     if _return_value == -1
       # puts("KNX client: error setting socket mode")
       @knx_connection.EIBReset
-      return [source, buffer] # if a error ocurred return empty values
+      return [source, buffer, 0] # if a error ocurred return empty values
     else
       # Standard data to read (in the c-examples)
       _data = [ 0,0 ]
       if @knx_connection.EIBSendAPDU([ 0,0 ]) == -1
         # puts("KNX client: error setting socket mode")
         @knx_connection.EIBReset
-        return [source, buffer] # if a error ocurred return empty values
+        return [source, buffer, 0] # if a error ocurred return empty values
       else
         values = read_polling_loop
         @knx_connection.EIBReset
@@ -96,6 +96,8 @@ private
     buf = EIBBuffer.new
     time_before = Time.now
     loop do
+      # break if more than a second elapsed
+      break if (Time.now - time_before).to_i > 0
       begin
         if @knx_connection.EIB_Poll_FD() == -1
           # "select failed"
@@ -119,12 +121,11 @@ private
         end
         # sum of the data buffer should be != 0, if some data was captured
         break if buf.buffer.inject(:+) != 0
-        # break if more than a second elapsed
-        break if (Time.now - time_before).to_i > 0
       rescue Errno::EAGAIN => e
         next
       end
     end
-    return [src, buf]
+    # the source address, the data and the elapsed time in seconds
+    return [src, buf, ((Time.now - time_before))]
   end
 end

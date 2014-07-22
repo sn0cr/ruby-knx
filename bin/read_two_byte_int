@@ -39,9 +39,9 @@ end
 # read value
 KNX(config["knx_ip"]) do |knx|
   groupaddresses.each do |ga|
-    (src, buffer) = knx.read_from ga
+    (src, buffer, seconds) = knx.read_from ga
     source = KNX::Decode.physical_address src.data
     buffer_decoded = KNX::Decode.two_byte_int buffer.buffer
-    puts "Value of #{ga}: #{buffer_decoded} (#{buffer_decoded/100}%) (#{buffer.buffer}) (That answer came from '#{source}'.)"
+    puts "Value of #{ga}: #{buffer_decoded} (#{buffer_decoded/100}%) (#{buffer.buffer}) (That answer came from '#{source}' and took #{seconds}s.)""
   end
 end

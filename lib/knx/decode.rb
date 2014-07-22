@@ -86,7 +86,7 @@ module KNX::Decode
 
     # convert to bit array with full byte ( 8 bits ) length
     byte_string = KNX::EncodeUtilities.to_binary_string(b1, 8) << KNX::EncodeUtilities.to_binary_string(b2, 8)
-     byte_string.to_i 2
+    byte_string.to_i 2
   end
 
   def byte_int(data)

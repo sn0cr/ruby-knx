@@ -193,13 +193,13 @@ describe KNX do
       end
 
      it "should return empty address" do
-        (source, _) = knx.read_from group_address
+        (source, _, _1) = knx.read_from group_address
         expect(source).to be_a EIBAddr
         expect(source.data).to be_zero
       end
 
       it "should return empty buffer" do
-        (_, buffer) = knx.read_from group_address
+        (_, buffer, _1) = knx.read_from group_address
         expect(buffer).to be_a EIBBuffer
         expect(buffer.buffer).to be_empty
       end
@@ -211,13 +211,13 @@ describe KNX do
       end
 
       it "should return empty address" do
-        (source, _) = knx.instance_eval{ read_polling_loop }
+        (source, _, _1) = knx.instance_eval{ read_polling_loop }
         expect(source).to be_a EIBAddr
         expect(source.data).to be_zero
       end
 
       it "should return empty buffer" do
-        (_, buffer) = knx.instance_eval{ read_polling_loop }
+        (_, buffer, _1) = knx.instance_eval{ read_polling_loop }
         expect(buffer).to be_a EIBBuffer
         expect(buffer.buffer).to be_empty
       end
@@ -229,13 +229,13 @@ describe KNX do
       end
 
       it "should return empty address" do
-        (source, _) = knx.instance_eval{ read_polling_loop }
+        (source, _, _1) = knx.instance_eval{ read_polling_loop }
         expect(source).to be_a EIBAddr
         expect(source.data).to be_zero
       end
 
       it "should return empty buffer" do
-        (_, buffer) = knx.instance_eval{ read_polling_loop }
+        (_, buffer, _1) = knx.instance_eval{ read_polling_loop }
         expect(buffer).to be_a EIBBuffer
         expect(buffer.buffer).to be_empty
       end
@@ -264,13 +264,13 @@ describe KNX do
       end
 
       it "should return empty address" do
-        (source, _) = knx.instance_eval{ read_polling_loop }
+        (source, _, _1) = knx.instance_eval{ read_polling_loop }
         expect(source).to be_a EIBAddr
         expect(source.data).to be_zero
       end
 
       it "should return empty buffer" do
-        (_, buffer) = knx.instance_eval{ read_polling_loop }
+        (_, buffer, _1) = knx.instance_eval{ read_polling_loop }
         expect(buffer).to be_a EIBBuffer
         expect(buffer.buffer).to be_empty
       end
@@ -284,13 +284,13 @@ describe KNX do
       end
 
       it "should return empty address" do
-        (source, _) = knx.instance_eval{ read_polling_loop }
+        (source, _, _1) = knx.instance_eval{ read_polling_loop }
         expect(source).to be_a EIBAddr
         expect(source.data).to be_zero
       end
 
       it "should return empty buffer" do
-        (_, buffer) = knx.instance_eval{ read_polling_loop }
+        (_, buffer,  _1) = knx.instance_eval{ read_polling_loop }
         expect(buffer).to be_a EIBBuffer
         expect(buffer.buffer).to be_empty
       end
@@ -304,13 +304,13 @@ describe KNX do
       end
 
       it "should return empty address" do
-        (source, _) = knx.instance_eval{ read_polling_loop }
+        (source, _, _1) = knx.instance_eval{ read_polling_loop }
         expect(source).to be_a EIBAddr
         expect(source.data).to be_zero
       end
 
       it "should return empty buffer" do
-        (_, buffer) = knx.instance_eval{ read_polling_loop }
+        (_, buffer, _1) = knx.instance_eval{ read_polling_loop }
         expect(buffer).to be_a EIBBuffer
         expect(buffer.buffer).to be_empty
       end
