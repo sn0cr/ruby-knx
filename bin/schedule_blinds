@@ -50,7 +50,7 @@ def calculate_times(date)
 
   rise_time = calc.compute_official_sunrise time_zone
   rise_time = if WEEKEND.include?(rise_time.wday) && (rise_time.hour < WEEKEND_EARLIEST_RISETIME)
-    DateTime.new(rise_time.year,rise_time.mon,rise_time.day,WEEKEND_EARLIEST_RISETIME, rise_time.min)
+    DateTime.new(rise_time.year,rise_time.mon,rise_time.day,WEEKEND_EARLIEST_RISETIME, 0)
   elsif rise_time.hour < WEEK_EARLIEST_RISETIME
     DateTime.new(rise_time.year,rise_time.mon,rise_time.day,WEEK_EARLIEST_RISETIME, 0)
   else
