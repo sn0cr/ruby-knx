@@ -42,6 +42,6 @@ KNX(config["knx_ip"]) do |knx|
     (src, buffer, seconds) = knx.read_from ga
     source = KNX::Decode.physical_address src.data
     buffer_decoded = KNX::Decode.float buffer.buffer
-    puts "Value of #{ga}: #{buffer_decoded} (#{buffer_decoded/100}%) (#{buffer.buffer}) (That answer came from '#{source}' and took #{seconds}s.)""
+    puts "Value of #{ga}: #{buffer_decoded} (#{buffer_decoded/100}%) (#{buffer.buffer}) (That answer came from '#{source}' and took #{seconds}s.)"
   end
 end
