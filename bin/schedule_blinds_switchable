@@ -22,7 +22,6 @@ require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib/script_uti
 
 require "redis"
 
-REDIS = Redis.new
 
 
 include KNX::ScriptUtilities
@@ -31,6 +30,8 @@ require_relative_to_base "vendor/solareventcalculator"
 require_relative_to_base "lib/knx"
 GROUPADDRESSES = read_yaml( relative_to_base( "bin/groupaddresses"))
 config = GROUPADDRESSES["schedule_blinds"]
+
+REDIS = Redis.new(:host => config["redis_host"], :port => config["redis_port"])
 
 LATITUDE = config["latitude"]
 LONGITUDE = config["longitude"]
