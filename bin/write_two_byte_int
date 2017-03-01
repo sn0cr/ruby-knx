@@ -1,0 +1,55 @@
+#!/usr/bin/env ruby
+# Copyright (c) 2014 C.Wahl
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib/script_utilities/script_utilities"))
+
+include KNX::ScriptUtilities
+
+require_relative_to_base "lib/knx"
+
+config = read_yaml relative_to_base "bin/groupaddresses"
+
+groupaddresses = if config.has_key? ARGV[0]
+  [config[ARGV[0]]].flatten
+elsif ARGV[0] =~ /(\d*)\/(\d*)\/(\d*)/
+  [ARGV[0]]
+else
+  STDERR.puts "No groupaddress found! (Your input was '#{ARGV[0]}')"
+  exit 1
+end
+
+
+value = if ARGV[1]
+  ARGV[1].to_i
+else
+  100
+end
+
+# send value
+KNX(config["knx_ip"]) do |knx|
+  groupaddresses.each do |ga|
+    encoded_value = KNX::Encode.two_byte_int(value)
+    value = KNX::Decode.two_byte_int [0,0] + encoded_value
+
+    puts "#{value} #{knx.write_to(ga, encoded_value)? 'was':'wasn\'t'} written to #{ga} successfully."
+  end
+end
+
