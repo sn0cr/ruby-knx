@@ -111,5 +111,3 @@ t.hexdump(false)
 
 t.hexdump(true)
 t.hexdump(false)
-
-

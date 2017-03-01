@@ -25,7 +25,7 @@
 #   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 
-require File.expand_path(File.join(File.dirname(__FILE__), "hexdump"))
+require 'hexdump' if $DEBUG
 require 'socket'
 include Socket::Constants
 
@@ -148,7 +148,7 @@ class EIBConnection
       return -1
     end
     data = [ (data.length>>8)&0xff, (data.length)&0xff ] + data
-    #puts "__EIB_SendRequest(data=#{data.inspect} length=#{data.length})" if $DEBUG
+    puts "__EIB_SendRequest(data=#{data.inspect} length=#{data.length})" if $DEBUG
     result = data.pack("C*")
     @fd.send(result, 0)
     puts "__EIB_SendRequest sent #{result.length} bytes: #{result.hexdump}" if $DEBUG
@@ -219,7 +219,6 @@ class EIBConnection
       puts "__EIB_CheckRequest received #{result.length} bytes: #{result.hexdump})" if $DEBUG
       if result.length > 0
         @data.concat(result.split('').collect{|c| c.unpack('c')[0]})
-	puts "__EIB_CheckRequest @data after recv. = #{@data.inspect})" if $DEBUG
       end
       @readlen += result.length
     end #if
@@ -1985,7 +1984,7 @@ class EIBConnection
     ibuf[0] = 0
     ibuf[1] = 32
     md = caller[0].match(/`(\w*)'/); clr = md and md[1] or caller[0]
-    puts("#{clr} calling __EIB_SendRequest, ibuf=#{ibuf.inspect}") if $DEBUG
+    puts("#{clr} calling __EIB_SendRequest with dest=#{dest.inspect}, ibuf=#{ibuf.inspect}") if $DEBUG
     if __EIB_SendRequest(ibuf) == -1
       return -1
     end
@@ -2368,4 +2367,3 @@ IMG_INVALID_KEY = 59
 IMG_AUTHORIZATION_FAILED = 60
 IMG_KEY_WRITE = 61
 end #class EIBConnection
-
