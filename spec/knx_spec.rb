@@ -1,4 +1,4 @@
-# Copyright (c) 2013 C.Wahl
+# Copyright (c) 2013 - 2017 C.Wahl
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
