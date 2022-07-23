@@ -26,7 +26,7 @@ GEM
       simplecov-html (~> 0.7.1)
     simplecov-html (0.7.1)
     slop (3.4.7)
-    tzinfo (0.3.38)
+    tzinfo (0.3.61)
 
 PLATFORMS
   ruby
